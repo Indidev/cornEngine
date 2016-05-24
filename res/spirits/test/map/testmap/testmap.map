@@ -1,0 +1,7 @@
+name: testmap
+row0: gras, gras, straight, gras, gras, gras, gras, gras
+row1: gras, curve.90, fork, straight.90, curve.180, gras, gras, gras
+row2: straight.90, crossing, curve.180, pond, straight, pond.90, curve.90, straight.90
+row3: gras, straight, straight, gras, fork.90, straight.90, curve.270, gras
+row4: gras, straight, curve, straight.90, curve.270, gras, gras, gras
+row5: gras, curve, straight.90, curve.180, pond.270, gras, gras, gras

@@ -10,7 +10,7 @@ using std::cos;
 using std::sin;
 
 /**
- * @brief extends QPoint with mathematic methods
+ * @brief extends Point with mathematic methods
  */
 class Point : public QPoint
 {
@@ -22,7 +22,7 @@ public:
     Point() {}
 
     /**
-     * @brief creates a point from a QPoint
+     * @brief creates a point from a Point
      * @param p
      */
     Point(QPoint p):QPoint(p) {}

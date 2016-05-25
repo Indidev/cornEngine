@@ -27,6 +27,10 @@
 #include "model/primitives/Triangle.h"
 #include <QPainter>
 #include <QTransform>
+#include "model/Types.h"
+#include "math.h"
+
+using std::sin;
 
 namespace Ui {
 class Gui;
@@ -48,7 +52,8 @@ protected:
     QLabel *lbl;
     Camera *cam;
     bool mouseDown;
-    QPoint lastMP;
+    Point lastMP;
+    MovableSpirit *robotArm;
 
     void test();
     void mouseMoveEvent(QMouseEvent * event);

@@ -18,7 +18,9 @@ void MovableSpirit::init()
     curAngle = 0.f;
     //center and vector center -> rotating point
     center = Point(spirit->getSize()) / 2;
-    rotP = center;
+
+    rotP = spirit->getPivot();
+    movP = spirit->getroot();
     vecCP = rotP - center;
 
     //calculate bounding box
@@ -29,7 +31,7 @@ void MovableSpirit::init()
     bb.translate(pos);
 }
 
-QImage *MovableSpirit::getCrop(const QRect &rect, long time, QPoint &offset)
+QImage *MovableSpirit::getCrop(const QRect &rect, long time, Point &offset)
 {
     if (img)
         delete img;
@@ -38,10 +40,8 @@ QImage *MovableSpirit::getCrop(const QRect &rect, long time, QPoint &offset)
 
     img = new QImage(spirit->getFrame(time));
 
-    curAngle = (float) time / 300.;
-
     //rotate image if necessary
-    if (fabs(curAngle) > 0.1) {
+    if (fabs(curAngle) > 0.0001) {
         //get center
         QTransform trans;
         trans.rotateRadians(curAngle);
@@ -50,9 +50,9 @@ QImage *MovableSpirit::getCrop(const QRect &rect, long time, QPoint &offset)
         //get new center
         Point c = Point(img->size()) / 2;
 
-        //rotate vector from new center to new point
+        //rotate vector from new center to new rotation point
         Point vecCPn(vecCP);
-        vecCPn.rotate(curAngle, vecCP);
+        vecCPn.rotate(curAngle);
 
         //add picture shift to offset
         offset += rotP - c - vecCPn;
@@ -66,10 +66,24 @@ bool MovableSpirit::isInScreen(const QRect &rect)
     return rect.intersects(bb);
 }
 
-void MovableSpirit::setPos(const QPoint &pos)
+void MovableSpirit::setPos(const Point &pos)
 {
-    bb.translate(pos - this->pos);
-    this->pos = pos;
+    bb.translate(pos - this->pos - movP);
+    this->pos = pos - movP;
+}
+
+void MovableSpirit::translate(const Point delta)
+{
+    bb.translate(delta);
+    this->pos += delta;
+}
+
+void MovableSpirit::rotate(float angle, CE::Angle type, bool absolut)
+{
+    if (type == CE::DEG)
+        angle = Math::degToRad(angle);
+
+    curAngle = absolut? angle: curAngle + angle;
 }
 
 QList<Triangle> MovableSpirit::colModel(QRect &)

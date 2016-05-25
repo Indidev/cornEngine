@@ -11,9 +11,9 @@
 #include "control/res/GameMapManager.h"
 #include <QRect>
 #include "model/primitives/Triangle.h"
-#include <QPoint>
 #include <QList>
 #include <math.h>
+#include "model/primitives/Point.h"
 
 void test();
 

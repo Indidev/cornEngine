@@ -4,7 +4,7 @@ const int TriangleFactory::PIXELSIZE = 5;
 const int TriangleFactory::THRESHOLD = 220;
 const char* TriangleFactory::TAG = "model/primitives/TriangleFactory";
 
-QList<Triangle> TriangleFactory::fromImg(QImage &img, QPoint delta)
+QList<Triangle> TriangleFactory::fromImg(QImage &img, Point delta)
 {
     QTime begin = QTime::currentTime();
     QList<Triangle> ts;
@@ -18,7 +18,7 @@ QList<Triangle> TriangleFactory::fromImg(QImage &img, QPoint delta)
         }
     }
     long millis = begin.msecsTo(QTime::currentTime());
-    Log::d(QString::fromUtf8(TAG), "Time taken: " + QString::number(millis) + "ms", "fromImg(QImage, QPoint)");
+    Log::d(QString::fromUtf8(TAG), "Time taken: " + QString::number(millis) + "ms", "fromImg(QImage, Point)");
 
     return ts;
 }
@@ -40,7 +40,7 @@ QImage TriangleFactory::toImg(QList<Triangle> &triangles)
     QPainter p(&img);
 
     for (Triangle t: triangles) {
-        QPoint *points = t.getPoints();
+        Point *points = t.getPoints();
 
         //p.fillRect(t.getBB(), Qt::black);
         for (int i = 0; i < 3; i++) {
@@ -54,7 +54,7 @@ QImage TriangleFactory::toImg(QList<Triangle> &triangles)
     return img;
 }
 
-QList<Triangle> TriangleFactory::square(int x, int y, QPoint delta)
+QList<Triangle> TriangleFactory::square(int x, int y, Point delta)
 {
     //transform pack into original image size
     x *= PIXELSIZE;
@@ -65,8 +65,8 @@ QList<Triangle> TriangleFactory::square(int x, int y, QPoint delta)
     y += delta.y();
 
     QList<Triangle> s;
-    s.append(Triangle(QPoint(x, y), QPoint(x + PIXELSIZE, y), QPoint(x + PIXELSIZE, y + PIXELSIZE)));
-    s.append(Triangle(QPoint(x, y), QPoint(x + PIXELSIZE, y + PIXELSIZE), QPoint(x, y + PIXELSIZE)));
+    s.append(Triangle(Point(x, y), Point(x + PIXELSIZE, y), Point(x + PIXELSIZE, y + PIXELSIZE)));
+    s.append(Triangle(Point(x, y), Point(x + PIXELSIZE, y + PIXELSIZE), Point(x, y + PIXELSIZE)));
     return s;
 }
 

@@ -49,7 +49,8 @@ HEADERS  += view/Gui.h \
     model/primitives/Triangle.h \
     model/primitives/Point.h \
     model/primitives/TriangleFactory.h \
-    control/util/Math.h
+    control/util/Math.h \
+    model/Types.h
 
 FORMS    += view/Gui.ui
 

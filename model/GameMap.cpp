@@ -76,7 +76,7 @@ GameMap::GameMap(QHash<QString, QString> config):Collisionable(TYPE)
     }
 }
 
-QImage *GameMap::getCrop(const QRect &rect, long time, QPoint &offset)
+QImage *GameMap::getCrop(const QRect &rect, long time, Point &offset)
 {
     if (crop)
         delete crop;

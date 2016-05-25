@@ -3,7 +3,8 @@
 
 #include <QImage>
 #include <QRect>
-#include <QPoint>
+
+#include "model/primitives/Point.h"
 
 class Drawable
 {
@@ -17,7 +18,7 @@ public:
      * @param offset offset return value
      * @return image in rect
      */
-    virtual QImage *getCrop(const QRect &rect, long time, QPoint &offset) = 0;
+    virtual QImage *getCrop(const QRect &rect, long time, Point &offset) = 0;
 
     /**
      * @brief test if this Drawable is in screen

@@ -44,7 +44,7 @@ public:
     QRect getBB() {return QRect(screenPos, mapSize);}
 
     //implemented from Drawable
-    QImage *getCrop(const QRect &rect, long time, QPoint &offset);
+    QImage *getCrop(const QRect &rect, long time, Point &offset);
     bool isInScreen(const QRect &rect);
 
     //implemented from Collisionable

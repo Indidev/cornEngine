@@ -2,10 +2,11 @@
 #define CAMERA_H
 
 #include <QImage>
-#include <QPoint>
 #include <QSize>
 #include <QRect>
+
 #include "control/render/DrawableStack.h"
+#include "model/primitives/Point.h"
 
 class Camera
 {
@@ -22,13 +23,13 @@ public:
      * @brief setPosition
      * @param pos
      */
-    void setPosition(QPoint pos);
+    void setPosition(Point pos);
 
     /**
      * @brief get the camera's postion
      * @return camera position
      */
-    const QPoint &getPosition();
+    const Point &getPosition();
 
     /**
      * @brief change the renderSize of the camera
@@ -47,7 +48,7 @@ protected:
     DrawableStack *stack;
     QSize boundary;
     QSize viewPort;
-    QPoint position;
+    Point position;
 };
 
 #endif // CAMERA_H

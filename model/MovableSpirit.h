@@ -7,12 +7,15 @@
 #include <QImage>
 #include <QTransform>
 
+#include <math.h>
+
 #include "control/res/SpiritManager.h"
 #include "model/Spirit.h"
 #include "model/Drawable.h"
 #include "model/interface/Collisionable.h"
-#include <math.h>
 #include "model/primitives/Point.h"
+#include "control/util/Math.h"
+#include "model/Types.h"
 
 using std::cos;
 using std::sin;
@@ -40,10 +43,24 @@ public:
      * @brief set the position of this spirit
      * @param pos new position
      */
-    void setPos(const QPoint &pos);
+    void setPos(const Point &pos);
+
+    /**
+     * @brief translates the spirit
+     * @param delta +- translation
+     */
+    void translate(const Point delta);
+
+    /**
+     * @brief rotate the spirit
+     * @param angle angle to rotate with
+     * @param type CE::RAD for Radian or CE::DEG for Degree
+     * @param absolut if absolut this will be the absolut angle otherwise the angle will be handled as a delta (default)
+     */
+    void rotate(float angle, CE::Angle type, bool absolut = false);
 
     //implemented from Drawable
-    QImage *getCrop(const QRect &rect, long time, QPoint &offset);
+    QImage *getCrop(const QRect &rect, long time, Point &offset);
     bool isInScreen(const QRect &rect);
 
     //implemented from Collisionable
@@ -55,11 +72,12 @@ protected:
     Spirit *spirit;
     Point pos;
     Point rotP;
+    Point movP;
     Point center;
     Point vecCP;
     QRect bb;
     QImage *img;
-    float curAngle;
+    float curAngle; //current angle in radian
 
 private:
     void init();

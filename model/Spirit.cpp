@@ -9,6 +9,8 @@ const QString Spirit::COL = "col";
 const QString Spirit::FPS = "fps";
 const QString Spirit::FTME = "fTime";
 const QString Spirit::DIR = "baseDir";
+const QString Spirit::PIV = "pivot";
+const QString Spirit::ROOT = "root";
 
 const QString Spirit::LOG_TAG = "model/Spirit";
 
@@ -24,7 +26,7 @@ Spirit::Spirit(QHash<QString, QString> &config)
     }
 
     //frame Size
-    QPoint tmp = splitNum(config[FSZE]);
+    Point tmp = splitNum(config[FSZE]);
     if (!tmp.isNull())
         this->frameSize = QSize(tmp.x(), tmp.y());
     else {
@@ -58,7 +60,7 @@ Spirit::Spirit(QHash<QString, QString> &config)
         this->frameTime = 1;
 
     //frame positions
-    QList<QPoint> framePos;
+    QList<Point> framePos;
     if (config.contains(FPOS)) {
         for (QString pos : config[FPOS].split(",")) {
             framePos.append(splitNum(pos));
@@ -71,25 +73,40 @@ Spirit::Spirit(QHash<QString, QString> &config)
             int y = i / collumns;
             x *= frameSize.width();
             y *= frameSize.height();
-            framePos.append(QPoint(x, y));
+            framePos.append(Point(x, y));
         }
     } else {
-        framePos.append(QPoint(0, 0));
+        framePos.append(Point(0, 0));
     }
 
     //load frames
-    for (QPoint pos : framePos) {
+    for (Point pos : framePos) {
         this->frames.append(img.copy(QRect(pos, frameSize)));
     }
+
+    //root point
+    if (config.contains(ROOT)) {
+        if (config[ROOT] == "center") {
+            this->rootP = Point(frameSize / 2);
+        } else {
+            this->rootP = splitNum(config[ROOT]);
+        }
+    }
+
+    //pivot point
+    if (config.contains(PIV)) {
+        this->pivotP = splitNum(config[PIV]);
+    } else
+        this->pivotP = Point(frameSize / 2);
 }
 
-QPoint Spirit::splitNum(QString input)
+Point Spirit::splitNum(QString input)
 {
     QStringList splitted = input.split(".");
     if (splitted.size() == 2)
-        return QPoint(splitted[0].trimmed().toInt(), splitted[1].trimmed().toInt());
+        return Point(splitted[0].trimmed().toInt(), splitted[1].trimmed().toInt());
     else
-        return QPoint(0, 0);
+        return Point(0, 0);
 }
 
 const QImage& Spirit::getFrame(long ms) {
@@ -111,6 +128,16 @@ const QList<Triangle> Spirit::getColModel()
 bool Spirit::hasColModel()
 {
     return hasCol;
+}
+
+Point Spirit::getPivot()
+{
+    return pivotP;
+}
+
+Point Spirit::getroot()
+{
+    return rootP;
 }
 
 

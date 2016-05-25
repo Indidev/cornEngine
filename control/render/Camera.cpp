@@ -5,10 +5,10 @@ Camera::Camera(DrawableStack *stack, QSize boundary, QSize viewPort)
     this->stack = stack;
     this->boundary = boundary;
     this->viewPort = viewPort;
-    this->position = QPoint(0, 0);
+    this->position = Point(0, 0);
 }
 
-void Camera::setPosition(QPoint pos)
+void Camera::setPosition(Point pos)
 {
     if (pos.x() + viewPort.width() > boundary.width())
         pos.setX(boundary.width() - viewPort.width());
@@ -22,7 +22,7 @@ void Camera::setPosition(QPoint pos)
     position = pos;
 }
 
-const QPoint &Camera::getPosition()
+const Point &Camera::getPosition()
 {
     return position;
 }

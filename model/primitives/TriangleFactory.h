@@ -24,7 +24,7 @@ public:
      * @param delta optional delta for the triangles
      * @return triangle list from image
      */
-    static QList<Triangle> fromImg(QImage &img, QPoint delta = QPoint());
+    static QList<Triangle> fromImg(QImage &img, Point delta = Point());
 
     /**
      * @brief paint triangles onto an image
@@ -38,7 +38,7 @@ protected:
     static const int THRESHOLD;
     static const char* TAG;
 
-    static QList<Triangle> square(int x, int y, QPoint delta);
+    static QList<Triangle> square(int x, int y, Point delta);
     static QImage resizedEdged(QImage &img);
     static int value(int rgb);
 };

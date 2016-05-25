@@ -24,11 +24,13 @@ void MovableSpirit::init()
     vecCP = rotP - center;
 
     //calculate bounding box
-    int x = rotP.x() < center.x()? 0: spirit->getSize().width();
-    int y = rotP.y() < center.y()? 0: spirit->getSize().height();
+    int x = rotP.x() > center.x()? 0: spirit->getSize().width();
+    int y = rotP.y() > center.y()? 0: spirit->getSize().height();
     int radius = rotP.distance(Point(x, y));
-    bb = QRect(rotP.x() - radius, rotP.y() - radius, 2 * radius, 2 * radius);
-    bb.translate(pos);
+    bb = QRect(-radius, -radius, 2 * radius, 2 * radius);
+
+    pos = -movP;
+    (void) 4;
 }
 
 QImage *MovableSpirit::getCrop(const QRect &rect, long time, Point &offset)
@@ -56,8 +58,21 @@ QImage *MovableSpirit::getCrop(const QRect &rect, long time, Point &offset)
 
         //add picture shift to offset
         offset += rotP - c - vecCPn;
-    }
 
+        //remove after test
+        //display col-model
+        /*if (spirit->hasColModel()) {
+            QPainter p(img);
+
+            QRect r = getBB();
+            QList<Triangle> ts = colModel(r);
+            Point of;
+            p.drawPoint(-(rotP - c - vecCPn));
+            p.drawImage(-(rotP - c - vecCPn) + of, TriangleFactory::toImg(ts, of));
+            p.end();
+        }*/
+
+    }
     return img;
 }
 
@@ -68,7 +83,7 @@ bool MovableSpirit::isInScreen(const QRect &rect)
 
 void MovableSpirit::setPos(const Point &pos)
 {
-    bb.translate(pos - this->pos - movP);
+    bb.translate(pos - this->pos);
     this->pos = pos - movP;
 }
 
@@ -91,9 +106,9 @@ QList<Triangle> MovableSpirit::colModel(QRect &)
     QList<Triangle> colModel = spirit->getColModel();
 
     //rotate if necessary (todo: evaluate if faster to do this only when angle is set)
-    if (fabs(curAngle) > 0.1) {
+    if (fabs(curAngle) > 0.0001) {
         for (Triangle &t: colModel)
-            t.rotate(curAngle);
+            t.rotate(curAngle, rotP);
     }
 
     return colModel;

@@ -57,7 +57,7 @@ void Gui::test() {
     stack->addDrawable(ms, 10);
 
     robotArm = new MovableSpirit("arm");
-    robotArm->setPos((Point(200, 200)));
+    robotArm->translate((Point(200, 200)));
     stack->addDrawable(robotArm, 10);
 
     stack->addDrawable(GameMapManager::getMap("testmap"), 0);
@@ -85,32 +85,12 @@ void Gui::test() {
     connect(timer, SIGNAL(timeout()), this, SLOT(tick()));
     timer->start(1000 / 30);
 
-    //try triangle mash
-
-    /*
-    QImage orginal("res/spirits/maps/1/map.png");
-    QImage map("res/spirits/maps/1/col.png");
-    QLabel *imgLbl = new QLabel;
-    QList<Triangle> t = TriangleFactory::fromImg(map);
-    orginal.fill(Qt::white);
-    QPainter p(&orginal);
-    p.drawImage(0, 0, TriangleFactory::toImg(t));
-    p.end();
-
-    imgLbl->setPixmap(QPixmap::fromImage(orginal));
-
-    QWidget *tmpL = layers->addWidget(11);
-    tmpL->setLayout(new QGridLayout);
-    tmpL->layout()->setMargin(0);
-    tmpL->layout()->setSpacing(0);
-
-    tmpL->layout()->addWidget(imgLbl);
-    */
 }
 
 void Gui::tick() {
     static long time = 0;
     time += 1000 / 30;
+
 
     robotArm->rotate(45 * sin((float) time / 500.f), CE::DEG, true);
 

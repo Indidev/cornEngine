@@ -54,6 +54,7 @@ protected:
     bool mouseDown;
     Point lastMP;
     MovableSpirit *robotArm;
+    QLabel *imgLbl;
 
     void test();
     void mouseMoveEvent(QMouseEvent * event);

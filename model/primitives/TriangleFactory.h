@@ -31,7 +31,7 @@ public:
      * @param triangles put triangles in there...
      * @return imgage generated form triangle list
      */
-    static QImage toImg(QList<Triangle> &triangles);
+    static QImage toImg(QList<Triangle> &triangles, Point &offset);
 
 protected:
     static const int PIXELSIZE;

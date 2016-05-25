@@ -23,18 +23,24 @@ QList<Triangle> TriangleFactory::fromImg(QImage &img, Point delta)
     return ts;
 }
 
-QImage TriangleFactory::toImg(QList<Triangle> &triangles)
+QImage TriangleFactory::toImg(QList<Triangle> &triangles, Point &offset)
 {
     int w = 0, h = 0;
+
+    offset = Point(0, 0);
 
     for (Triangle &t: triangles) {
         int r = t.getBB().right();
         int b = t.getBB().bottom();
         w = r > w? r : w;
         h = b > h? b : h;
+        if (offset.x() > t.getBB().left())
+            offset.setX(t.getBB().left());
+        if (offset.y() > t.getBB().top())
+            offset.setY(t.getBB().top());
     }
 
-    QImage img(w, h, QImage::Format_ARGB32);
+    QImage img(w - offset.x(), h - offset.y(), QImage::Format_ARGB32);
     img.fill(Qt::transparent);
 
     QPainter p(&img);
@@ -45,7 +51,7 @@ QImage TriangleFactory::toImg(QList<Triangle> &triangles)
         //p.fillRect(t.getBB(), Qt::black);
         for (int i = 0; i < 3; i++) {
 
-            p.drawLine(points[i], points[(i + 1) % 3]);
+            p.drawLine(points[i] - offset, points[(i + 1) % 3] - offset);
         }
     }
 

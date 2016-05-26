@@ -81,17 +81,13 @@ void Gui::test() {
 
     layout->addStretch();
 
-    QTimer *timer = new QTimer;
-    connect(timer, SIGNAL(timeout()), this, SLOT(tick()));
-    timer->start(1000 / 30);
+    timer.subscribe(this);
+    timer.start(1000 / 60);
 
 }
 
-void Gui::tick() {
-    static long time = 0;
-    time += 1000 / 30;
-
-
+void Gui::onTime(long time, int delta)
+{
     robotArm->rotate(45 * sin((float) time / 500.f), CE::DEG, true);
 
     //cam->setPosition(Point(time / 10, 0));

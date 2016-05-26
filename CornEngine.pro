@@ -30,7 +30,9 @@ SOURCES += cornEngine.cpp\
     model/primitives/Triangle.cpp \
     model/primitives/Point.cpp \
     model/primitives/TriangleFactory.cpp \
-    control/util/Math.cpp
+    control/util/Math.cpp \
+    control/Timer.cpp \
+    control/TimeThread.cpp
 
 HEADERS  += view/Gui.h \
         view/widgets/LayeredWidget.h \
@@ -50,7 +52,10 @@ HEADERS  += view/Gui.h \
     model/primitives/Point.h \
     model/primitives/TriangleFactory.h \
     control/util/Math.h \
-    model/Types.h
+    model/Types.h \
+    control/Timer.h \
+    model/interface/TimeListener.h \
+    control/TimeThread.h
 
 FORMS    += view/Gui.ui
 

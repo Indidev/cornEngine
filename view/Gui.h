@@ -29,6 +29,8 @@
 #include <QTransform>
 #include "model/Types.h"
 #include "math.h"
+#include "model/interface/TimeListener.h"
+#include "control/Timer.h"
 
 using std::sin;
 
@@ -36,13 +38,14 @@ namespace Ui {
 class Gui;
 }
 
-class Gui : public QMainWindow
+class Gui : public QMainWindow, TimeListener
 {
     Q_OBJECT
 
 public:
     explicit Gui(QWidget *parent = 0);
     ~Gui();
+    void onTime(long time, int delta);
 
 protected:
     Ui::Gui *ui;
@@ -55,13 +58,13 @@ protected:
     Point lastMP;
     MovableSpirit *robotArm;
     QLabel *imgLbl;
+    Timer timer;
 
     void test();
     void mouseMoveEvent(QMouseEvent * event);
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent *);
 protected slots:
-    void tick();
 };
 
 #endif // GUI_H

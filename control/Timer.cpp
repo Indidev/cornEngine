@@ -1,5 +1,10 @@
 #include "Timer.h"
 
+Timer::Timer()
+{
+    connect(&t, SIGNAL(timeout()), this, SLOT(onTick()));
+}
+
 Timer::~Timer()
 {
     updater.stop();

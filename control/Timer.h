@@ -18,6 +18,8 @@ class Timer : public QObject
     Q_OBJECT
 public:
 
+    Timer();
+
     ~Timer();
 
     /**

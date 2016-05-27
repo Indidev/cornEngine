@@ -33,7 +33,7 @@ SOURCES += cornEngine.cpp\
     control/util/Math.cpp \
     control/Timer.cpp \
     control/TimeThread.cpp \
-    view/ImageWidget.cpp
+    view/widgets/ImageWidget.cpp
 
 HEADERS  += view/Gui.h \
         view/widgets/LayeredWidget.h \
@@ -57,7 +57,7 @@ HEADERS  += view/Gui.h \
     control/Timer.h \
     model/interface/TimeListener.h \
     control/TimeThread.h \
-    view/ImageWidget.h
+    view/widgets/ImageWidget.h
 
 FORMS    += view/Gui.ui
 

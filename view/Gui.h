@@ -32,7 +32,7 @@
 #include "model/interface/TimeListener.h"
 #include "control/Timer.h"
 #include <QMutex>
-#include "view/ImageWidget.h"
+#include "view/widgets/ImageWidget.h"
 
 using std::sin;
 

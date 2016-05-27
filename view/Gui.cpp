@@ -42,6 +42,13 @@ void Gui::mouseReleaseEvent(QMouseEvent *)
     mouseDown = false;
 }
 
+void Gui::resizeEvent(QResizeEvent *ev)
+{
+    lock.lock();
+    QMainWindow::resizeEvent(ev);
+    lock.unlock();
+}
+
 void Gui::test() {
 
     DrawableStack *stack = new DrawableStack;
@@ -66,9 +73,10 @@ void Gui::test() {
 
 
     QWidget *pic = layers->addWidget(10);
-    lbl = new QLabel;
+    camWidget = new ImageWidget;
 
-    lbl->setPixmap(QPixmap::fromImage(*(cam->render(0))));
+    camWidget->setImage(cam->render(0));
+    //camWidget->setPixmap(QPixmap::fromImage(*(cam->render(0))));
 
     QHBoxLayout *layout = new QHBoxLayout;
     pic->setLayout(layout);
@@ -77,7 +85,7 @@ void Gui::test() {
 
     layout->addStretch();
 
-    layout->addWidget(lbl);
+    layout->addWidget(camWidget);
 
     layout->addStretch();
 
@@ -88,9 +96,13 @@ void Gui::test() {
 
 void Gui::onTime(long time, int delta)
 {
+    Log::d("Gui", "delta: " + QString::number(delta));
     robotArm->rotate(45 * sin((float) time / 500.f), CE::DEG, true);
 
     //cam->setPosition(Point(time / 10, 0));
-    lbl->setPixmap(QPixmap::fromImage(*(cam->render(time))));
+
+    //QImage *render = cam->render(time);
+    camWidget->setImage(cam->render(time));
+    //camWidget->setPixmap(QPixmap::fromImage(*render));
 }
 

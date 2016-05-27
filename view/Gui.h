@@ -31,6 +31,8 @@
 #include "math.h"
 #include "model/interface/TimeListener.h"
 #include "control/Timer.h"
+#include <QMutex>
+#include "view/ImageWidget.h"
 
 using std::sin;
 
@@ -52,18 +54,21 @@ protected:
     LayeredWidget *layers;
 
     //test
-    QLabel *lbl;
+    ImageWidget *camWidget;
     Camera *cam;
     bool mouseDown;
     Point lastMP;
     MovableSpirit *robotArm;
     QLabel *imgLbl;
     Timer timer;
+    QMutex lock;
 
     void test();
     void mouseMoveEvent(QMouseEvent * event);
     void mousePressEvent(QMouseEvent * event);
     void mouseReleaseEvent(QMouseEvent *);
+
+    void resizeEvent(QResizeEvent *ev);
 protected slots:
 };
 

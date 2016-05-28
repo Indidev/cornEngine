@@ -75,7 +75,7 @@ QStringList Input::loadLines(QString filepath)
         while (!stream.atEnd()) {
             QString line = stream.readLine();
             if (line.trimmed().startsWith("include(")) {
-                list.append(loadLines(line.remove("include(").remove(")")));
+                list.append( loadLines(filepath.left(filepath.lastIndexOf("/") + 1) + line.remove("include(").remove(")")));
             } else {
                 list.append(line);
             }

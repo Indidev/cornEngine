@@ -1,0 +1,4 @@
+points: //points can be declared by an identifier and their location: id|x.y
+p1|0.0,
+p2|25.0,
+p3|0.25

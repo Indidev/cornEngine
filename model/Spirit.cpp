@@ -38,7 +38,8 @@ Spirit::Spirit(QHash<QString, QString> &config)
         this->hasCol = true;
         QString value = config[COL];
         if (value.endsWith(".col")) {
-            colModel = TriangleFactory::fromFile(Input::loadMap(config[DIR] + "/" + value));
+            QHash<QString, QString> colMap = Input::loadMap(config[DIR] + "/" + value);
+            colModel = TriangleFactory::fromFile(colMap);
         } else {
             QImage img = Input::loadImage(config[DIR] + "/" + value);
             if (!img.isNull())

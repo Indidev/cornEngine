@@ -1,0 +1,23 @@
+// include a file for points
+include(gras-points.col)
+
+//points can be either predefined ones (see gras-points.col) or x.y parameters
+triangles: //three points each triangle, 
+p1, p2, p3, p2, 25.25, p3
+
+squares: //four points each square
+50.50, 100.50, 100.100, 50.100
+
+fans: //see wikipedia -> triangle fan, multiple fans are seperated via "|"
+150.30, 150.10, 160.15, 170.20, 160.40|
+30.30, 30.20, 40.30, 30.40, 20.30, 30.20
+
+strips: //see wikipedia -> triangle strip, multiple strips are seperated via "|"
+10.170, 10.190, 40.170, 40.190, 70.170, 70.190, 100.170
+
+circles: //circles are defined by a center points and a radius: x.y|r
+150.150|20,
+180.180|10,
+180.180|15
+
+

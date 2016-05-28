@@ -8,8 +8,8 @@ void Point::rotate(float angle, QPoint rotP)
     float oldX = x();
     float oldY = y();
 
-    setX(cos(angle) * oldX - sin(angle) * oldY);
-    setY(sin(angle) * oldX + cos(angle) * oldY);
+    setX(cos(angle) * oldX - sin(angle) * oldY + 0.5);
+    setY(sin(angle) * oldX + cos(angle) * oldY + 0.5);
 
     //translate back
     operator +=(rotP);

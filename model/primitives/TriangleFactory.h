@@ -21,12 +21,12 @@ class TriangleFactory
 {
 public:
 
-    static const QString PNT;
-    static const QString TRI;
-    static const QString SQR;
-    static const QString FAN;
-    static const QString STRIP;
-    static const QString CIRC;
+    static const char* PNT;
+    static const char* TRI;
+    static const char* SQR;
+    static const char* FAN;
+    static const char* STRIP;
+    static const char* CIRC;
 
     /**
      * @brief creates a triangle list from a collision picture
@@ -41,7 +41,7 @@ public:
      * @param fileContent content from file
      * @return triangle list from file
      */
-    static QList<Triangle> fromFile(QHash<QString, QString> fileContent);
+    static QList<Triangle> fromFile(QHash<QString, QString> &fileContent);
 
     /**
      * @brief paint triangles onto an image

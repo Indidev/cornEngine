@@ -113,7 +113,9 @@ QImage *GameMap::getCrop(const QRect &rect, long time, Point &offset)
                     painter.drawImage(drawP, spirits[y][x]->getFrame(time).copy(part));
 
                 //test: draw collision model on top
-                //QList<Triangle> cm = colModel(intersected);
+                //QList<Triangle> cm = colModel(picR);
+                //Point offset;
+                //painter.drawImage(-Point(rect.topLeft()) , TriangleFactory::toImg(cm, offset));
             }
         }
     }

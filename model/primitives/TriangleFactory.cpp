@@ -2,7 +2,15 @@
 
 const int TriangleFactory::PIXELSIZE = 5;
 const int TriangleFactory::THRESHOLD = 220;
+const int TriangleFactory::NUM_EDGES = 30;
 const char* TriangleFactory::TAG = "model/primitives/TriangleFactory";
+
+const QString TriangleFactory::PNT = "points";
+const QString TriangleFactory::TRI = "triangles";
+const QString TriangleFactory::SQR = "squares";
+const QString TriangleFactory::FAN = "fans";
+const QString TriangleFactory::STRIP = "strips";
+const QString TriangleFactory::CIRC = "circles";
 
 QList<Triangle> TriangleFactory::fromImg(QImage &img, Point delta)
 {
@@ -21,6 +29,71 @@ QList<Triangle> TriangleFactory::fromImg(QImage &img, Point delta)
     Log::d(QString::fromUtf8(TAG), "Time taken: " + QString::number(millis) + "ms", "fromImg(QImage, Point)");
 
     return ts;
+}
+
+QList<Triangle> TriangleFactory::fromFile(QHash<QString, QString> fileContent)
+{
+    QList<Triangle> colModel;
+    QHash<QString, Point> pointL;
+
+    //Points
+    QList<QString> elems = fileContent[PNT].split(",", QString::SkipEmptyParts);
+    //add all points to point list
+    for (QString &elem : elems) {
+        QList<QString> params = elem.split("|");
+        if (params.length() == 2) {
+            pointL[params[0].trimmed()] = toPoint(params[1]);
+        }
+    }
+
+    //Triangles
+    QList<Point> p = getPoints(fileContent[TRI], pointL);
+    //append triangles
+    for (int i = 0; i < p.length() - 2; i += 3)
+        colModel.append(Triangle(p[i], p[i + 1], p[i + 2]));
+
+    //Fans
+    p = getPoints(fileContent[FAN], pointL);
+    //append triangles
+    for (int i = 1; i < p.length() - 1; i++)
+        colModel.append(Triangle(p[0], p[i], p[i + 1]));
+
+    //Strips
+    p = getPoints(fileContent[STRIP], pointL);
+    //append triangles
+    for (int i = 0; i < p.length() - 2; i++)
+        colModel.append(Triangle(p[i], p[i + 1], p[i + 2]));
+
+    //Squares
+    p = getPoints(fileContent[SQR], pointL);
+    //append squares
+    for (int i = 0; i < p.length() - 2; i += 4) {
+        colModel.append(Triangle(p[i], p[i + 1], p[i + 2]));
+        colModel.append(Triangle(p[i + 2], p[i + 3], p[i]));
+    }
+
+    //circles
+    elems = fileContent[CIRC].split(",", QString::SkipEmptyParts);
+    //itterate over all circles
+    for (QString elem: elems) {
+        if (elem.contains("|")) {
+            p.clear();
+            QList<QString> splitted = elem.split("|", QString::SkipEmptyParts);
+            p.append(toPoint(splitted[0]));
+            int r = splitted[1].trimmed().toInt();
+            p.append(p.front() + Point(0, r));
+            //create all fan points
+            for (int i = 0; i < NUM_EDGES; i++) {
+                p.append(p.last().rotated(Math::degToRad(360 / NUM_EDGES), p.first()));
+            }
+            //add resulting fan to triangle list
+            for (int i = 1; i < p.length() - 1; i++)
+                colModel.append(Triangle(p[0], p[i], p[i + 1]));
+
+        }
+    }
+
+    return colModel;
 }
 
 QImage TriangleFactory::toImg(QList<Triangle> &triangles, Point &offset)
@@ -99,6 +172,30 @@ QImage TriangleFactory::resizedEdged(QImage &img)
 int TriangleFactory::value(int rgb)
 {
     return QColor::fromRgb(rgb).value();
+}
+
+Point TriangleFactory::toPoint(QString &input)
+{
+    QStringList splitted = input.split(".");
+    if (splitted.size() == 2)
+        return Point(splitted[0].trimmed().toInt(), splitted[1].trimmed().toInt());
+    else
+        return Point(0, 0);
+}
+
+QList<Point> TriangleFactory::getPoints(const QString &value, const QHash<QString, Point> &pointL)
+{
+    QList<Point> p;
+
+    QList<QString> elems = value.split(",", QString::SkipEmptyParts);
+    for (QString &elem : elems) {
+        if (elem.contains("."))
+            p.append(toPoint(elem));
+        else
+            p.append(pointL[elem.trimmed()]);
+    }
+
+    return p;
 }
 
 

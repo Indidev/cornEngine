@@ -38,7 +38,7 @@ Spirit::Spirit(QHash<QString, QString> &config)
         this->hasCol = true;
         QString value = config[COL];
         if (value.endsWith(".col")) {
-            //todo load collision model from mash
+            colModel = TriangleFactory::fromFile(Input::loadMap(config[DIR] + "/" + value));
         } else {
             QImage img = Input::loadImage(config[DIR] + "/" + value);
             if (!img.isNull())

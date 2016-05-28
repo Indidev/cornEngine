@@ -67,13 +67,18 @@ QStringList Input::loadLines(QString filepath)
 {
     QStringList list;
 
-    QFile file(filepath);
+    QFile file(filepath.trimmed());
     if (file.exists()) {
         file.open(QIODevice::ReadOnly | QIODevice::Text);
 
         QTextStream stream(&file);
         while (!stream.atEnd()) {
-            list.append(stream.readLine());
+            QString line = stream.readLine();
+            if (line.trimmed().startsWith("include(")) {
+                list.append(loadLines(line.remove("include(").remove(")")));
+            } else {
+                list.append(line);
+            }
         }
     } else {
         Log::e(TAG, "file(" + filepath + ") could not be loaded", "loadLines(QString)");

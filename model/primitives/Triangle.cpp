@@ -47,6 +47,13 @@ void Triangle::translate(const Point &delta)
         points[i] += delta;
 }
 
+Triangle Triangle::translated(const Point &delta)
+{
+    Triangle t(*this);
+    t.translate(delta);
+    return t;
+}
+
 void Triangle::rotate(const float radAngle, Point rotPoint)
 {
     //translate to root
@@ -63,6 +70,13 @@ void Triangle::rotate(const float radAngle, Point rotPoint)
     //translate back
     //translate(rotPoint);
     init();
+}
+
+Triangle Triangle::rotated(const float radAngle, Point rotPoint)
+{
+    Triangle t(*this);
+    t.rotate(radAngle, rotPoint);
+    return t;
 }
 
 bool Triangle::intersects(Triangle &other)

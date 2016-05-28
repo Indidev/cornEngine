@@ -48,6 +48,14 @@ public:
     void rotate(float angle, QPoint rotP = QPoint());
 
     /**
+     * @brief give a rotated copy of this point
+     * @param angle angle to rotate with in radian
+     * @param rotP point to rotate around [default: (0|0)]
+     * @return a rotated copy
+     */
+    Point rotated(float angle, QPoint rotP = QPoint());
+
+    /**
      * @brief calculates the direct distance to another point, or length if used as vector
      * @param other point to calculate distance to, or Point(0, 0) if non is given
      * @return direct distance, or length without parameter

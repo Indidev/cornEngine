@@ -15,6 +15,13 @@ void Point::rotate(float angle, QPoint rotP)
     operator +=(rotP);
 }
 
+Point Point::rotated(float angle, QPoint rotP)
+{
+    Point r(*this);
+    r.rotate(angle, rotP);
+    return r;
+}
+
 float Point::distance(QPoint other)
 {
     return sqrt((x() - other.x()) * (x() - other.x()) + (y() - other.y()) * (y() - other.y()));

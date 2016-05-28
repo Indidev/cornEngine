@@ -61,11 +61,26 @@ public:
     void translate(const Point &delta);
 
     /**
+     * @brief gives a translated copy of this triangle
+     * @param delta vector to translate
+     * @return translated copy
+     */
+    Triangle translated(const Point &delta);
+
+    /**
      * @brief rotates the triangle clockwise around a given point
      * @param radAngle angle in radian
      * @param rotPoint point to rotate around (standart = 0|0)
      */
     void rotate(const float radAngle, Point rotPoint = Point());
+
+    /**
+     * @brief create a clockwise rotated copy
+     * @param radAngle angle to rotate
+     * @param rotPoint point to rotate around
+     * @return rotated copy
+     */
+    Triangle rotated(const float radAngle, Point rotPoint = Point());
 
     /**
      * @brief check if another triangle intersects this one, including complete subsets

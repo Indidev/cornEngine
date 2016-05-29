@@ -6,6 +6,9 @@
 
 #include <math.h>
 
+#include "model/Types.h"
+#include "control/util/Math.h"
+
 using std::cos;
 using std::sin;
 
@@ -44,16 +47,18 @@ public:
      * @brief rotate the point around a point clockwise for a given angle
      * @param angle angle to rotate in radian
      * @param rotP point to rotate around [default: (0|0)]
+     * @param type angle mode (default: CE::RAD)
      */
-    void rotate(float angle, QPoint rotP = QPoint());
+    void rotate(float angle, QPoint rotP = QPoint(), CE::Angle type = CE::RAD);
 
     /**
      * @brief give a rotated copy of this point
      * @param angle angle to rotate with in radian
      * @param rotP point to rotate around [default: (0|0)]
+     * @param type angle mode (default: CE::RAD)
      * @return a rotated copy
      */
-    Point rotated(float angle, QPoint rotP = QPoint());
+    Point rotated(float angle, QPoint rotP = QPoint(), CE::Angle type = CE::RAD);
 
     /**
      * @brief calculates the direct distance to another point, or length if used as vector

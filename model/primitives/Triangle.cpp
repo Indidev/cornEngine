@@ -54,14 +54,14 @@ Triangle Triangle::translated(const Point &delta)
     return t;
 }
 
-void Triangle::rotate(const float radAngle, Point rotPoint)
+void Triangle::rotate(const float radAngle, Point rotPoint, CE::Angle type)
 {
     //translate to root
     //translate(-rotPoint);
 
     //rotate every point
     for (int i = 0; i < 3; i++) {
-        points[i].rotate(radAngle, rotPoint);
+        points[i].rotate(radAngle, rotPoint, type);
         //rotate (todo: change to other data structure (e.g. extend Point and implement rotate function there)
         //points[i] = Point(cos(radAngle) * (float) points[i].x() - sin(radAngle) * (float) points[i].y(),
         //                   sin(radAngle) * (float) points[i].x() + cos(radAngle) * (float) points[i].y());
@@ -72,10 +72,10 @@ void Triangle::rotate(const float radAngle, Point rotPoint)
     init();
 }
 
-Triangle Triangle::rotated(const float radAngle, Point rotPoint)
+Triangle Triangle::rotated(const float radAngle, Point rotPoint, CE::Angle type)
 {
     Triangle t(*this);
-    t.rotate(radAngle, rotPoint);
+    t.rotate(radAngle, rotPoint, type);
     return t;
 }
 

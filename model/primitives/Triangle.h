@@ -8,6 +8,7 @@
 #include <math.h>
 
 #include "model/primitives/Point.h"
+#include "model/Types.h"
 
 using std::cos;
 using std::sin;
@@ -71,16 +72,18 @@ public:
      * @brief rotates the triangle clockwise around a given point
      * @param radAngle angle in radian
      * @param rotPoint point to rotate around (standart = 0|0)
+     * @param type angle mode (default: CE::RAD)
      */
-    void rotate(const float radAngle, Point rotPoint = Point());
+    void rotate(const float radAngle, Point rotPoint = Point(), CE::Angle type = CE::RAD);
 
     /**
      * @brief create a clockwise rotated copy
      * @param radAngle angle to rotate
      * @param rotPoint point to rotate around
+     * @param type angle mode (default: CE::RAD)
      * @return rotated copy
      */
-    Triangle rotated(const float radAngle, Point rotPoint = Point());
+    Triangle rotated(const float radAngle, Point rotPoint = Point(), CE::Angle type = CE::RAD);
 
     /**
      * @brief check if another triangle intersects this one, including complete subsets

@@ -1,9 +1,12 @@
 #include "Point.h"
 
-void Point::rotate(float angle, QPoint rotP)
+void Point::rotate(float angle, QPoint rotP, CE::Angle type)
 {
     //translate to root
     operator -=(rotP);
+
+    if (type == CE::DEG)
+        angle = Math::degToRad(angle);
 
     float oldX = x();
     float oldY = y();
@@ -15,10 +18,10 @@ void Point::rotate(float angle, QPoint rotP)
     operator +=(rotP);
 }
 
-Point Point::rotated(float angle, QPoint rotP)
+Point Point::rotated(float angle, QPoint rotP, CE::Angle type)
 {
     Point r(*this);
-    r.rotate(angle, rotP);
+    r.rotate(angle, rotP, type);
     return r;
 }
 

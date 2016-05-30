@@ -16,6 +16,7 @@
 #include "model/primitives/Point.h"
 #include "control/util/Math.h"
 #include "model/Types.h"
+#include "model/primitives/PointF.h"
 
 using std::cos;
 using std::sin;
@@ -71,10 +72,10 @@ public:
 protected:
     Spirit *spirit;
     Point pos;
-    Point rotP;
+    PointF rotP;
     Point movP;
-    Point center;
-    Point vecCP;
+    PointF center;
+    PointF vecCP;
     QRect bb;
     QImage *img;
     float curAngle; //current angle in radian

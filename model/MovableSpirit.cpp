@@ -17,9 +17,10 @@ void MovableSpirit::init()
     img = NULL;
     curAngle = 0.f;
     //center and vector center -> rotating point
-    center = Point(spirit->getSize()) / 2;
+    center = PointF(Point(spirit->getSize()));
+    center /= 2;
 
-    rotP = spirit->getPivot();
+    rotP = PointF(spirit->getPivot());
     movP = spirit->getroot();
     vecCP = rotP - center;
 
@@ -47,17 +48,18 @@ QImage *MovableSpirit::getCrop(const QRect &rect, long time, Point &offset)
         //get center
         QTransform trans;
         trans.rotateRadians(curAngle);
-        *img = img->transformed(trans);
+        *img = img->transformed(trans, Qt::SmoothTransformation);
 
         //get new center
-        Point c = Point(img->size()) / 2;
+        PointF c(Point(img->size()));
+        c /= 2;
 
         //rotate vector from new center to new rotation point
-        Point vecCPn(vecCP);
+        PointF vecCPn(vecCP);
         vecCPn.rotate(curAngle);
 
         //add picture shift to offset
-        offset += rotP - c - vecCPn;
+        offset += (rotP - c - vecCPn).toPoint();
 
         //remove after test
         //display col-model
@@ -108,7 +110,7 @@ QList<Triangle> MovableSpirit::colModel(QRect &)
     //rotate if necessary (todo: evaluate if faster to do this only when angle is set)
     if (fabs(curAngle) > 0.0001) {
         for (Triangle &t: colModel)
-            t.rotate(curAngle, rotP);
+            t.rotate(curAngle, rotP.toPoint());
     }
 
     return colModel;

@@ -109,6 +109,13 @@ bool PointF::operator==(const PointF &other)
     return same(mX, other.mX) && same(mY, other.mY);
 }
 
+PointF &PointF::operator=(const PointF &other)
+{
+    mX = other.x();
+    mY = other.y();
+    return *this;
+}
+
 void PointF::rotate(float angle, PointF rotP, CE::Angle type)
 {
     //translate to root
@@ -120,8 +127,8 @@ void PointF::rotate(float angle, PointF rotP, CE::Angle type)
     float oldX = mX;
     float oldY = mY;
 
-    mX = cos(angle) * oldX - sin(angle) * oldY + 0.5;
-    mY = sin(angle) * oldX + cos(angle) * oldY + 0.5;
+    mX = cos(angle) * oldX - sin(angle) * oldY;
+    mY = sin(angle) * oldX + cos(angle) * oldY;
 
     //translate back
     operator +=(rotP);

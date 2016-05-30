@@ -106,6 +106,8 @@ QImage *GameMap::getCrop(const QRect &rect, long time, Point &offset)
 
                 int angle = rots[y][x];
                 if (angle) {
+                    //todo do this rotation at the beginning and copy all spirits...
+                    //use hashmap to avoid redundancy
                     QTransform trans;
                     trans.rotate(angle);
                     painter.drawImage(drawP, spirits[y][x]->getFrame(time).transformed(trans).copy(part));

@@ -38,9 +38,10 @@ public:
     void operator /=(float div);
     void operator *=(float fac);
     bool operator==(const PointF& other);
+    PointF& operator=(const PointF &other);
 
-    void rotate(float angle, PointF rotP = PointF(), CE::Angle type = CE::DEG);
-    PointF rotated(float angle, PointF rotP = PointF(), CE::Angle type = CE::DEG);
+    void rotate(float angle, PointF rotP = PointF(), CE::Angle type = CE::RAD);
+    PointF rotated(float angle, PointF rotP = PointF(), CE::Angle type = CE::RAD);
     float distance(QPoint other);
 protected:
     float mX;

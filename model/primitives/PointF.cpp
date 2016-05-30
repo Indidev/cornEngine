@@ -55,6 +55,41 @@ Point PointF::toPoint()
     return Point (mX + 0.5, mY + 0.5);
 }
 
+void PointF::rotate(float angle, PointF rotP, CE::Angle type)
+{
+    //translate to root
+    operator -=(rotP);
+
+    if (type == CE::DEG)
+        angle = Math::degToRad(angle);
+
+    float oldX = mX;
+    float oldY = mY;
+
+    mX = cos(angle) * oldX - sin(angle) * oldY;
+    mY = sin(angle) * oldX + cos(angle) * oldY;
+
+    //translate back
+    operator +=(rotP);
+}
+
+PointF PointF::rotated(float angle, PointF rotP, CE::Angle type)
+{
+    PointF r(this);
+    r.rotate(angle, rotP, type);
+    return r;
+}
+
+float PointF::distance(const QPoint other)
+{
+    return sqrt((x() - other.x()) * (x() - other.x()) + (y() - other.y()) * (y() - other.y()));
+}
+
+float PointF::distance(const PointF other)
+{
+    return sqrt((x() - other.x()) * (x() - other.x()) + (y() - other.y()) * (y() - other.y()));
+}
+
 PointF PointF::operator -(const PointF &other)
 {
     return PointF(mX - other.mX, mY - other.mY);
@@ -114,36 +149,6 @@ PointF &PointF::operator=(const PointF &other)
     mX = other.x();
     mY = other.y();
     return *this;
-}
-
-void PointF::rotate(float angle, PointF rotP, CE::Angle type)
-{
-    //translate to root
-    operator -=(rotP);
-
-    if (type == CE::DEG)
-        angle = Math::degToRad(angle);
-
-    float oldX = mX;
-    float oldY = mY;
-
-    mX = cos(angle) * oldX - sin(angle) * oldY;
-    mY = sin(angle) * oldX + cos(angle) * oldY;
-
-    //translate back
-    operator +=(rotP);
-}
-
-PointF PointF::rotated(float angle, PointF rotP, CE::Angle type)
-{
-    PointF r(this);
-    r.rotate(angle, rotP, type);
-    return r;
-}
-
-float PointF::distance(QPoint other)
-{
-    return sqrt((x() - other.x()) * (x() - other.x()) + (y() - other.y()) * (y() - other.y()));
 }
 
 bool PointF::same(float a, float b)

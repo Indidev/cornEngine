@@ -7,7 +7,7 @@
 #include <QPainter>
 #include <QRect>
 
-#include "model/Drawable.h"
+#include "model/interface/Drawable.h"
 #include "control/util/Log.h"
 #include "model/primitives/Point.h"
 

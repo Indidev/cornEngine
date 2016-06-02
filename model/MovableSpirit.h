@@ -11,7 +11,7 @@
 
 #include "control/res/SpiritManager.h"
 #include "model/Spirit.h"
-#include "model/Drawable.h"
+#include "model/interface/Drawable.h"
 #include "model/interface/Collisionable.h"
 #include "model/primitives/Point.h"
 #include "control/util/Math.h"

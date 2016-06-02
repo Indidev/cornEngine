@@ -45,7 +45,7 @@ HEADERS  += view/Gui.h \
     model/Spirit.h \
     control/res/SpiritManager.h \
     control/res/GameMapManager.h \
-    model/Drawable.h \
+    model/interface/Drawable.h \
     control/render/DrawableStack.h \
     control/render/Camera.h \
     model/MovableSpirit.h \

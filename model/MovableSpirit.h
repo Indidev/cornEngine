@@ -40,6 +40,8 @@ public:
      */
     MovableSpirit(QString name);
 
+    MovableSpirit(MovableSpirit &other);
+
     /**
      * @brief set the position of this spirit
      * @param pos new position

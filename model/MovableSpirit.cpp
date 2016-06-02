@@ -12,6 +12,19 @@ MovableSpirit::MovableSpirit(QString name)
     init();
 }
 
+MovableSpirit::MovableSpirit(MovableSpirit &other)
+{
+    this->spirit = other.spirit;
+    this->img = other.img;
+    this->curAngle = other.curAngle;
+    this->center = other.center;
+    this->rotP = other.rotP;
+    this->movP = other.movP;
+    this->vecCP = other.vecCP;
+    this->bb = other.bb;
+    this->pos = other.pos;
+}
+
 void MovableSpirit::init()
 {
     img = NULL;
@@ -31,7 +44,6 @@ void MovableSpirit::init()
     bb = QRect(-radius, -radius, 2 * radius, 2 * radius);
 
     pos = -movP;
-    (void) 4;
 }
 
 QImage *MovableSpirit::getCrop(const QRect &rect, long time, Point &offset)

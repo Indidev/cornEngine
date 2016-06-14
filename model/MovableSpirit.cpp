@@ -101,6 +101,11 @@ void MovableSpirit::setPos(const Point &pos)
     this->pos = pos - movP;
 }
 
+Point MovableSpirit::getPos()
+{
+    return pos;
+}
+
 void MovableSpirit::translate(const Point delta)
 {
     bb.translate(delta);

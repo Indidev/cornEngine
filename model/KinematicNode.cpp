@@ -78,3 +78,8 @@ void KinematicNode::setName(QString name)
 {
     this->name = name;
 }
+
+QList<KinematicNode *> KinematicNode::getChildren()
+{
+    return children;
+}

@@ -53,3 +53,31 @@ bool Kinematic::isInScreen(const QRect &rect)
 
     return false;
 }
+
+QRect Kinematic::getBB()
+{
+    QRect bb = rootNode->getBB();
+    for (KinematicNode *node : allNodes.values()) {
+        if (node != rootNode) {
+            Point delta = node->getPos() - rootNode->getPos();
+            bb = bb.united(node->getBB().translated(delta));
+        }
+    }
+    return bb;
+}
+
+QList<Triangle> Kinematic::colModel(QRect &rect)
+{
+
+    QList<Triangle> colM;
+    for (KinematicNode *node : allNodes.values()) {
+        //Point delta = node->getPos() - rootNode->getPos();
+        colM.append(node->colModel(rect));
+    }
+    return colM;
+}
+
+Point Kinematic::rootPoint()
+{
+    return rootNode->rootPoint();
+}

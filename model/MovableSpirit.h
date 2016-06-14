@@ -49,6 +49,12 @@ public:
     void setPos(const Point &pos);
 
     /**
+     * @brief getPos
+     * @return position of this Spirit
+     */
+    Point getPos();
+
+    /**
      * @brief translates the spirit
      * @param delta +- translation
      */

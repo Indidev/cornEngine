@@ -78,6 +78,12 @@ public:
      */
     void setName(QString name);
 
+    /**
+     * @brief getChildren
+     * @return return children of this node
+     */
+    QList<KinematicNode*> getChildren();
+
 protected:
     QString name;
     KinematicNode* parent;

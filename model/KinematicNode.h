@@ -20,7 +20,7 @@ public:
      * @param delta delta position if the parent angle = 0
      * @param parent optional parent of this node
      */
-    KinematicNode(MovableSpirit &spirit, Point delta, KinematicNode *parent = NULL);
+    KinematicNode(MovableSpirit &spirit, QString name, Point delta, KinematicNode *parent = NULL);
 
     /**
      * @brief set the position of this spirit
@@ -66,7 +66,20 @@ public:
      */
     void removeChild(KinematicNode *node);
 
+    /**
+     * @brief get a node's name
+     * @return name of this node
+     */
+    QString getName();
+
+    /**
+     * @brief set the node's name
+     * @param name name of node
+     */
+    void setName(QString name);
+
 protected:
+    QString name;
     KinematicNode* parent;
     Point delta;
     QList<KinematicNode*> children;

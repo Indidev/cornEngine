@@ -1,7 +1,8 @@
 #include "KinematicNode.h"
 
-KinematicNode::KinematicNode(MovableSpirit &spirit, Point delta, KinematicNode *parent) : MovableSpirit(spirit)
+KinematicNode::KinematicNode(MovableSpirit &spirit, QString name, Point delta, KinematicNode *parent) : MovableSpirit(spirit)
 {
+    this->name = name;
     this->parent = parent;
     this->delta = delta;
 }
@@ -66,4 +67,14 @@ void KinematicNode::setParent(KinematicNode *node)
 void KinematicNode::removeChild(KinematicNode *node)
 {
     children.removeOne(node);
+}
+
+QString KinematicNode::getName()
+{
+    return name;
+}
+
+void KinematicNode::setName(QString name)
+{
+    this->name = name;
 }

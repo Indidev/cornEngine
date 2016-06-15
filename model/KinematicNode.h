@@ -7,6 +7,7 @@
 #include "model/primitives/Point.h"
 #include "model/MovableSpirit.h"
 #include "model/Types.h"
+#include "control/util/Log.h"
 
 /**
  * @brief The KinematicNode class represents a node of a kinematic
@@ -17,7 +18,7 @@ public:
     /**
      * @brief creates a new KinematicNode from a MovableSpirit
      * @param spirit spirit for the node
-     * @param delta delta position if the parent angle = 0
+     * @param delta delta position from the parent's root if the parent's angle = 0
      * @param parent optional parent of this node
      */
     KinematicNode(MovableSpirit &spirit, QString name, Point delta, KinematicNode *parent = NULL);

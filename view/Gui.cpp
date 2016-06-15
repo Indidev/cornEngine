@@ -63,6 +63,10 @@ void Gui::test() {
 
     stack->addDrawable(ms, 10);
 
+    k = new Kinematic;
+    k->setPos(Point(400, 300));
+    stack->addDrawable(k, 10);
+
     robotArm = new MovableSpirit("arm");
     robotArm->translate((Point(200, 200)));
     stack->addDrawable(robotArm, 10);
@@ -98,6 +102,10 @@ void Gui::onTime(long time, int delta)
 {
     Log::d("Gui", "delta: " + QString::number(delta));
     robotArm->rotate(45 * sin((float) time / 500.f), CE::DEG, true);
+    //k->getRootNode()->rotate(50, CE::DEG);
+    //k->getRootNode()->rotate(0.1, CE::DEG);
+    k->getRootNode()->rotate(50 * sin((float) time / 500.f), CE::DEG, true);
+    k->getRootNode()->getChildren()[0]->rotate(5, CE::DEG);
 
     //cam->setPosition(Point(time / 10, 0));
 

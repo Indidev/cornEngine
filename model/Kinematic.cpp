@@ -3,6 +3,15 @@
 Kinematic::Kinematic()
 {
     render = NULL;
+
+    //TODO remove after test and implement loading from file etc.
+    MovableSpirit s("arm");
+    rootNode = new KinematicNode(s, "rootNode", Point(0, 0));
+    rootNode->addChild(new KinematicNode(s, "node1", Point(0, -110)));
+
+    //add all children to hashmap
+    allNodes[rootNode->getName()] = rootNode;
+    allNodes[rootNode->getChildren()[0]->getName()] = rootNode->getChildren()[0];
 }
 
 KinematicNode *Kinematic::getNode(QString name)
@@ -18,6 +27,11 @@ KinematicNode *Kinematic::getRootNode()
 QList<KinematicNode *> Kinematic::getAllNodes()
 {
     return allNodes.values();
+}
+
+void Kinematic::setPos(const Point &pos)
+{
+    rootNode->setPos(pos);
 }
 
 QImage *Kinematic::getCrop(const QRect &rect, long time, Point &)
@@ -39,6 +53,8 @@ QImage *Kinematic::getCrop(const QRect &rect, long time, Point &)
         if (node->isInScreen(rect)) {
             QImage *crop = node->getCrop(rect, time, off);
             painter.drawImage(off, *crop);
+        } else {
+            Log::e("Kinematic", "not in screen...");
         }
     }
     painter.end();

@@ -73,7 +73,7 @@ QImage *MovableSpirit::getCrop(const QRect &rect, long time, Point &offset)
         //add picture shift to offset
         offset += (rotP - c - vecCPn).toPoint();
 
-        //remove after test
+        //TODO: remove after test
         //display col-model
         /*if (spirit->hasColModel()) {
             QPainter p(img);
@@ -81,8 +81,8 @@ QImage *MovableSpirit::getCrop(const QRect &rect, long time, Point &offset)
             QRect r = getBB();
             QList<Triangle> ts = colModel(r);
             Point of;
-            p.drawPoint(-(rotP - c - vecCPn));
-            p.drawImage(-(rotP - c - vecCPn) + of, TriangleFactory::toImg(ts, of));
+            p.drawPoint(-(rotP - c - vecCPn).toPoint());
+            p.drawImage(-(rotP - c - vecCPn).toPoint() + of, TriangleFactory::toImg(ts, of));
             p.end();
         }*/
 
@@ -97,7 +97,7 @@ bool MovableSpirit::isInScreen(const QRect &rect)
 
 void MovableSpirit::setPos(const Point &pos)
 {
-    bb.translate(pos - this->pos);
+    bb.translate(pos - movP - this->pos);
     this->pos = pos - movP;
 }
 

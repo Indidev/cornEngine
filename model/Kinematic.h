@@ -8,6 +8,10 @@
 
 #include "model/KinematicNode.h"
 #include "model/interface/Drawable.h"
+#include "model/primitives/Point.h"
+
+//TODO: remove after test
+#include "model/MovableSpirit.h"
 
 /**
  * @brief Representation of a Kinematic
@@ -36,7 +40,15 @@ public:
      */
     QList<KinematicNode*> getAllNodes();
 
+    /**
+     * @brief sets the position of the kinematic
+     * @param pos new position
+     */
+    void setPos(const Point &pos);
+
+    //----------------------------------
     //inherited functions frome here on
+    //----------------------------------
     //implemented from Drawable
     QImage *getCrop(const QRect &rect, long time, Point&);
     bool isInScreen(const QRect &rect);

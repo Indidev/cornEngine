@@ -33,6 +33,7 @@
 #include "control/Timer.h"
 #include <QMutex>
 #include "view/widgets/ImageWidget.h"
+#include "model/Kinematic.h"
 
 using std::sin;
 
@@ -62,6 +63,7 @@ protected:
     QLabel *imgLbl;
     Timer timer;
     QMutex lock;
+    Kinematic *k;
 
     void test();
     void mouseMoveEvent(QMouseEvent * event);

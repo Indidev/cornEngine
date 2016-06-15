@@ -25,10 +25,16 @@ void KinematicNode::translate(const Point delta)
 
 void KinematicNode::rotate(float angle, CE::Angle type, bool absolut)
 {
+    float oldAngle = curAngle;
+    float relativeAngle = angle;
     MovableSpirit::rotate(angle, type, absolut);
+    if (type == CE::DEG)
+        relativeAngle = curAngle - oldAngle;
     //update children
-    for (KinematicNode *node : children)
-        node->setPos(pos + node->delta.rotated(curAngle));
+    for (KinematicNode *node : children) {
+        node->rotate(relativeAngle, type);
+        node->setPos(pos + node->delta.rotated(curAngle) + node->movP);
+    }
 }
 
 void KinematicNode::addChildren(QList<KinematicNode *> nodes)

@@ -8,6 +8,7 @@
 #include "model/MovableSpirit.h"
 #include "model/Types.h"
 #include "control/util/Log.h"
+#include "control/util/Math.h"
 
 /**
  * @brief The KinematicNode class represents a node of a kinematic
@@ -41,7 +42,7 @@ public:
      * @param type CE::RAD for Radian or CE::DEG for Degree
      * @param absolut if absolut this will be the absolut angle otherwise the angle will be handled as a delta (default)
      */
-    void rotate(float angle, CE::Angle type, bool absolut = false);
+    void rotate(float angle, CE::Angle type = CE::RAD, bool absolut = false);
 
     /**
      * @brief add a list of children to this node
@@ -85,11 +86,20 @@ public:
      */
     QList<KinematicNode*> getChildren();
 
+    /**
+     * @brief set the nodes angle
+     * @param angle angle to rotate with
+     * @param type CE::RAD for Radian or CE::DEG for Degree
+     * @param absolut if absolut this will be the absolut angle otherwise the angle will be handled as a delta (default)
+     */
+    void setAngle(float angle, CE::Angle type = CE::RAD, bool absolut = false);
+
 protected:
     QString name;
     KinematicNode* parent;
     Point delta;
     QList<KinematicNode*> children;
+    float nodeAngle;
 };
 
 #endif // KINEMATICNODE_H

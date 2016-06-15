@@ -5,6 +5,7 @@ KinematicNode::KinematicNode(MovableSpirit &spirit, QString name, Point delta, K
     this->name = name;
     this->parent = parent;
     this->delta = delta;
+    this->nodeAngle = 0.f;
 }
 
 void KinematicNode::setPos(const Point &pos)
@@ -23,13 +24,26 @@ void KinematicNode::translate(const Point delta)
         node->translate(delta);
 }
 
+void KinematicNode::setAngle(float angle, CE::Angle type, bool absolut) {
+    if (type == CE::DEG)
+        angle = Math::degToRad(angle);
+
+    float oldAngle = nodeAngle;
+    nodeAngle = absolut? angle: nodeAngle + angle;
+
+    rotate(nodeAngle - oldAngle);
+}
+
 void KinematicNode::rotate(float angle, CE::Angle type, bool absolut)
 {
     float oldAngle = curAngle;
-    float relativeAngle = angle;
-    MovableSpirit::rotate(angle, type, absolut);
+
     if (type == CE::DEG)
-        relativeAngle = curAngle - oldAngle;
+        angle = Math::degToRad(angle);
+
+    curAngle = absolut? angle + nodeAngle: curAngle + angle;
+
+    float relativeAngle = absolut? curAngle - oldAngle: angle;
     //update children
     for (KinematicNode *node : children) {
         node->rotate(relativeAngle, type);

@@ -13,6 +13,7 @@ MovableSpirit::MovableSpirit(QString name)
 }
 
 MovableSpirit::MovableSpirit(MovableSpirit &other)
+    :Collisionable()
 {
     this->spirit = other.spirit;
     this->img = other.img;

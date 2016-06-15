@@ -104,8 +104,8 @@ void Gui::onTime(long time, int delta)
     robotArm->rotate(45 * sin((float) time / 500.f), CE::DEG, true);
     //k->getRootNode()->rotate(50, CE::DEG);
     //k->getRootNode()->rotate(0.1, CE::DEG);
-    k->getRootNode()->rotate(50 * sin((float) time / 500.f), CE::DEG, true);
-    k->getRootNode()->getChildren()[0]->rotate(5, CE::DEG);
+    k->getRootNode()->setAngle(50 * sin((float) time / 500.f), CE::DEG, true);
+    k->getRootNode()->getChildren()[0]->setAngle(-50 * sin((float) time / 500.f), CE::DEG, true);
 
     //cam->setPosition(Point(time / 10, 0));
 

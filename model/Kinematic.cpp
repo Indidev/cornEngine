@@ -53,11 +53,22 @@ QImage *Kinematic::getCrop(const QRect &rect, long time, Point &)
         if (node->isInScreen(rect)) {
             QImage *crop = node->getCrop(rect, time, off);
             painter.drawImage(off, *crop);
-        } else {
+        } /*else {
             Log::e("Kinematic", "not in screen...");
-        }
+        }*/
     }
     painter.end();
+
+    //draw col-model
+    /*
+    QPainter p(render);
+
+    QRect r = getBB();
+    QList<Triangle> ts = colModel(r);
+    Point of;
+    p.drawImage(rootPoint() - rect.topLeft() + of, TriangleFactory::toImg(ts, of));
+    p.end();
+    */
 
     return render;
 }
@@ -87,8 +98,11 @@ QList<Triangle> Kinematic::colModel(QRect &rect)
 
     QList<Triangle> colM;
     for (KinematicNode *node : allNodes.values()) {
-        //Point delta = node->getPos() - rootNode->getPos();
-        colM.append(node->colModel(rect));
+        Point delta = node->getPos() - rootNode->getPos();
+
+        for (Triangle t: node->colModel(rect)) {
+            colM.append(t.translated(delta));
+        }
     }
     return colM;
 }

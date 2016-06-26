@@ -123,7 +123,7 @@ void MovableSpirit::rotate(float angle, CE::Angle type, bool absolut)
 
 QList<Triangle> MovableSpirit::colModel(QRect &)
 {
-    QList<Triangle> colModel = spirit->getColModel();
+    QList<Triangle> colModel(spirit->getColModel());
 
     //rotate if necessary (todo: evaluate if faster to do this only when angle is set)
     if (fabs(curAngle) > 0.0001) {
